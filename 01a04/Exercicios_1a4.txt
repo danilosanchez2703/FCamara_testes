@@ -1,0 +1,97 @@
+        /*
+         1) Um funcionário de uma empresa recebe, anualmente, aumento salarial.
+            Sabe-se que:
+            Esse funcionário foi contratado em 2005 com salário inicial de R$ 1.000,00;
+            Em 2006 ele recebeu aumento de 1,5% sobre seu salário inicial; e
+            A partir de 2007, os aumentos salariais sempre corresponderam ao dobro do percentual do ano anterior.
+            Faça um algoritmo que determine o salário atual deste funcionário.
+         */
+        private decimal SalarioAtual()
+        {
+            decimal nSalario = 1000;
+            decimal nPercentual = 1.5M;
+            decimal nNovoSalario = (nSalario + (nSalario * (nPercentual / 100)));
+
+            for (int i = 2007; i <= DateTime.Now.Year; i++)
+            {
+                nPercentual = (2 * nPercentual);
+                nNovoSalario = (nNovoSalario + (nNovoSalario * (nPercentual / 100)));
+            }
+            return nNovoSalario;
+        }
+
+
+        /*
+         2) Elabore um algoritmo para mostrar os números primos existentes em um intervalo.
+            O usuário deverá fornecer os valores inicial (inicial > 0) e final (inicial < final) e os números primos existentes no intervalo ([inicial, final]) devem ser separados por um espaço em branco
+            Exemplo:
+            Entrada: 2 13
+            Saída: 2 3 5 7 11 13
+         */
+        private List<int> NumerosPrimos(int AiInicial, int AiFinal)
+        {
+            List<int> lstPrimo = new List<int>();
+
+            for (int i = AiInicial; i <= AiFinal; i++)
+            {
+                int primo = 0;
+                for (int y = AiInicial; y <= i; y++)
+                {
+                    if ((i == 1))
+                        continue;
+                    else
+                        if (((i % y) == 0) && (y!=1))
+                            primo++;
+                }
+                if (primo == 1)
+                    lstPrimo.Add(i);
+            }
+            return lstPrimo;
+        }
+
+        /*
+        3) Receba o número de horas trabalhadas por uma pessoa e o valor do salário mínimo e mostre o salário a receber baseado nas seguintes regras:
+        A hora trabalhada equivale a 10% do salário mínimo informado;
+        O salário bruto é dado pelo número de horas trabalhadas multiplicado pelo valor de cada hora;
+        O imposto pago é de 3%.
+        O salário a receber é equivalente ao salário bruto subtraído do imposto.         
+         */
+        private decimal SalarioReceber (decimal AnQtdeHoras, decimal AnValorSalarioMinimo)
+        {
+            if ((AnQtdeHoras <=0) || (AnValorSalarioMinimo <=0))
+                return 0;
+
+            decimal nValorHora = (AnValorSalarioMinimo * 0.10M);
+            decimal nValorBruto = (nValorHora * AnQtdeHoras);
+            decimal nValorLiquido = (nValorBruto - (nValorBruto * 0.03M));
+
+            return nValorLiquido;
+        }
+
+
+        /*
+        4) Faça um programa para uma loja de tintas. O programa deverá pedir o tamanho em metros quadrados da área a ser pintada. Considere que a 
+         cobertura da tinta é de 1 litro para cada 3 metros quadrados e que a tinta é vendida em latas de 18 litros, que custam R$ 80,00. Informe ao 
+         usuário a quantidades de latas de tinta a serem compradas e o preço total.
+         */
+        private int CalculaQtdeTinta (decimal AnQtdeMetros)
+        {
+            // (3*18)=54 autonomia para o galão de 18lts
+            if (AnQtdeMetros <= 0)
+                return 0;
+            if (AnQtdeMetros <= 54)
+                return 1;
+            else
+                return Convert.ToInt32(Math.Ceiling((AnQtdeMetros / 54)));
+        }
+
+        private decimal ValorTintaUtilizar(int AiQtdeLata)
+        {
+            // Valor lata 80,00
+            decimal nValorLata = 80.00M;
+
+            if (AiQtdeLata <= 0)
+                return 0;
+            else
+                return (AiQtdeLata * nValorLata);
+        }
